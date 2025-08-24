@@ -8,6 +8,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { BookOpen, ArrowLeft, Home } from "lucide-react";
+import { useEffect, useState } from "react";
+import AccentLogo from "@/components/AccentLogo";
 
 interface PlaceholderProps {
   title: string;
@@ -15,23 +17,33 @@ interface PlaceholderProps {
 }
 
 export default function Placeholder({ title, description }: PlaceholderProps) {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [isInstructor, setIsInstructor] = useState(false);
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    setIsLoggedIn(!!token);
+    const userDetails = localStorage.getItem('userDetails');
+    if (userDetails) {
+      try {
+        const user = JSON.parse(userDetails);
+        setIsAdmin(!!user.isAdmin);
+        setIsInstructor(!!user.isInstructor);
+      } catch {}
+    }
+  }, []);
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('userDetails');
+    window.location.reload();
+  };
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
       <header className="bg-white border-b border-gray-200">
         <div className="container mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
-            <Link to="/" className="flex items-center space-x-3">
-              <div className="bg-primary rounded-xl p-2">
-                <BookOpen className="h-6 w-6 text-primary-foreground" />
-              </div>
-              <div>
-                <h1 className="text-xl font-bold text-gray-900">LMS</h1>
-                <p className="text-xs text-gray-600">
-                  Learning Management System
-                </p>
-              </div>
-            </Link>
+            <AccentLogo />
 
             <div className="flex items-center space-x-4">
               <Link to="/">
@@ -40,12 +52,37 @@ export default function Placeholder({ title, description }: PlaceholderProps) {
                   Home
                 </Button>
               </Link>
-              <Link to="/login">
-                <Button variant="ghost">Sign In</Button>
+              <Link to="/courses">
+                <Button variant="ghost">Courses</Button>
               </Link>
-              <Link to="/signup">
-                <Button>Sign Up</Button>
+              <Link to="/about">
+                <Button variant="ghost">About</Button>
               </Link>
+              <Link to="/contact">
+                <Button variant="ghost">Contact</Button>
+              </Link>
+              {isAdmin && (
+                <Link to="/admin/dashboard">
+                  <Button variant="ghost">Admin Dashboard</Button>
+                </Link>
+              )}
+              {isInstructor && (
+                <Link to="/instructor/dashboard">
+                  <Button variant="ghost">Instructor Dashboard</Button>
+                </Link>
+              )}
+              {isLoggedIn ? (
+                <Button variant="outline" onClick={handleLogout}>Logout</Button>
+              ) : (
+                <>
+                  <Link to="/login">
+                    <Button variant="ghost">Sign In</Button>
+                  </Link>
+                  <Link to="/signup">
+                    <Button>Sign Up</Button>
+                  </Link>
+                </>
+              )}
             </div>
           </div>
         </div>

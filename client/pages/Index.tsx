@@ -24,6 +24,7 @@ import {
 import { Header } from "@/components/Header";
 import { TermsModal } from "@/components/TermsModal";
 import { PrivacyModal } from "@/components/PrivacyModal";
+import AccentLogo from "@/components/AccentLogo";
 
 export default function Index() {
   const [showTermsModal, setShowTermsModal] = useState(false);
@@ -264,12 +265,7 @@ export default function Index() {
                 <div className="bg-primary rounded-xl p-2">
                   <BookOpen className="h-6 w-6 text-primary-foreground" />
                 </div>
-                <div>
-                  <h3 className="text-xl font-bold">LMS</h3>
-                  <p className="text-sm text-gray-400">
-                    Learning Management System
-                  </p>
-                </div>
+                <AccentLogo />
               </div>
               <p className="text-gray-400 mb-4 max-w-md">
                 Empowering learners worldwide with comprehensive, expert-led

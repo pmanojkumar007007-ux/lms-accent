@@ -16,6 +16,7 @@ import {
   Lock,
   Database,
 } from "lucide-react";
+import AccentLogo from "@/components/AccentLogo";
 
 export default function PrivacyPolicy() {
   return (
@@ -28,12 +29,7 @@ export default function PrivacyPolicy() {
               <div className="bg-primary rounded-xl p-2">
                 <BookOpen className="h-6 w-6 text-primary-foreground" />
               </div>
-              <div>
-                <h1 className="text-xl font-bold text-gray-900">LMS</h1>
-                <p className="text-xs text-gray-600">
-                  Learning Management System
-                </p>
-              </div>
+              <AccentLogo />
             </Link>
 
             <div className="flex items-center space-x-4">

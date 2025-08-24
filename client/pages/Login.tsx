@@ -12,7 +12,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { BookOpen, Eye, EyeOff, Mail } from "lucide-react";
+import {  Eye, EyeOff, Mail } from "lucide-react";
+import AccentLogo from "@/components/AccentLogo";
 import { Header } from "@/components/Header";
 import { TermsModal } from "@/components/TermsModal";
 import { PrivacyModal } from "@/components/PrivacyModal";
@@ -34,9 +35,12 @@ export default function Login() {
     }
     try {
       // Replace with your actual login API endpoint and response shape
-      const res = await api.post("/login", { email, password });
+      const res = await api.post("api/auth/login", { username:email, password });
       if (res.data && res.data.token) {
         localStorage.setItem("token", res.data.token);
+        // Save all details except token in userDetails
+        const { token, ...userDetails } = res.data;
+        localStorage.setItem("userDetails", JSON.stringify(userDetails));
         window.location.href = "/";
       } else {
         alert(res.data.error || "Login failed");
@@ -72,11 +76,7 @@ export default function Login() {
       <div className="w-full max-w-md">
         {/* Logo and Branding */}
         <div className="text-center mb-8">
-          <Header showAuthButtons={false} variant="minimal" />
-          <div className="mt-6">
-            <h1 className="text-3xl font-bold text-gray-900">Welcome back</h1>
-            <p className="text-gray-600 mt-2">Sign in to your account</p>
-          </div>
+          <AccentLogo />
         </div>
 
         {/* Login Card */}

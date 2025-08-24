@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { BookOpen, Eye, EyeOff, Mail, User, Check } from "lucide-react";
+import AccentLogo from "@/components/AccentLogo";
 import { Header } from "@/components/Header";
 import { TermsModal } from "@/components/TermsModal";
 import { PrivacyModal } from "@/components/PrivacyModal";
@@ -43,18 +44,20 @@ export default function Signup() {
       return;
     }
     try {
+      debugger;
       // Replace with your actual signup API endpoint and response shape
-      const res = await api.post("/signup", {
-        firstName: formData.firstName,
-        lastName: formData.lastName,
+      const res = await api.post("api/auth/register", {
+        username: formData.firstName+ formData.lastName,
         email: formData.email,
         password: formData.password,
+        role: "Student",
       });
-      if (res.data && (res.data.success || res.data.token)) {
+      debugger;
+      if (res.data && (res.status=200)) {
         // If your API returns a token on signup, store it
-        if (res.data.token) {
-          localStorage.setItem("token", res.data.token);
-        }
+        // if (res.data.token) {
+        //   localStorage.setItem("token", res.data.token);
+        // }
         alert("Signup successful! You can now log in.");
         window.location.href = "/login";
       } else {
@@ -98,13 +101,7 @@ export default function Signup() {
       <div className="w-full max-w-md">
         {/* Logo and Branding */}
         <div className="text-center mb-8">
-          <Header showAuthButtons={false} variant="minimal" />
-          <div className="mt-6">
-            <h1 className="text-3xl font-bold text-gray-900">Join LMS</h1>
-            <p className="text-gray-600 mt-2">
-              Create your learning account today
-            </p>
-          </div>
+          <AccentLogo />
         </div>
 
         {/* Signup Card */}

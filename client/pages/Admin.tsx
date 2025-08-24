@@ -15,19 +15,16 @@ import {
   Users,
   GraduationCap,
   BarChart3,
-  Settings,
   Plus,
   Search,
   Bell,
   LogOut,
-  Menu,
-  Home,
-  FileText,
   Award,
   Calendar,
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import AccentLogo from "@/components/AccentLogo";
 
 export default function Admin() {
   const [activeTab, setActiveTab] = useState("overview");
@@ -100,17 +97,7 @@ export default function Admin() {
         <div className="px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
-              <div className="flex items-center space-x-3">
-                <div className="bg-primary rounded-lg p-2">
-                  <BookOpen className="h-6 w-6 text-primary-foreground" />
-                </div>
-                <div>
-                  <h1 className="text-xl font-bold text-gray-900">LMS Admin</h1>
-                  <p className="text-sm text-gray-600">
-                    Learning Management System
-                  </p>
-                </div>
-              </div>
+            <AccentLogo />
             </div>
 
             <div className="flex items-center space-x-4">
